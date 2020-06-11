@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8"/>
+    <title>User Manager</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/js/admin.js"></script>
+
+</head>
+<body>
+<div class="p-3 mb-2 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col" id="LoginAuth"></div>
+
+            <div class="col" id="RoleAuth"></div>
+
+            <div class="col" align="right"><a href="/logout" class="text-secondary">Logout</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="/admin">Admin</a>
+            <a class="nav-link" href="">User</a>
+        </nav>
+    </div>
+    <div class="col-10">
+
+        <h1>Admin panel</h1>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#adminPanel">Users table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="adminPanel">   
+
+                <nav class="navbar navbar-black bg-light">
+                <span class="navbar-text">
+                   All users
+                  </span>
+                </nav>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <table id="tableBootstrap" class="table table-striped">
+                                <thead>           
+                                <tr>             
+                                    <th>User ID</th>
+                                                   
+                                    <th>Login</th>
+                                    <th>Password</th>
+                                    <th>Roles</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                                
+                                </tr>
+                                        
+                                </thead>
+                            </table>
+                            <!--               модалка ЭДИТ                 -->
+                            <div class="modal fade" id="editModal" tabindex="-1"
+                                 role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabelEdit">Edit User</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="#" method="post">
+                                                <div class="form-group">
+                                                    <label for="IdEditModal">id</label>
+                                                    <input type="text" class="form-control" id="IdEditModal">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="LoginEditModal">Login</label>
+                                                    <input type="text" class="form-control" id="LoginEditModal">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="PasswordEditModal">Password</label>
+                                                    <input type="password" class="form-control"
+                                                           id="PasswordEditModal">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="RoleEditModal">Role</label>
+                                                    <select class="custom-select" id="RoleEditModal"
+                                                            name="role">
+                                                        <option>ADMIN</option>
+                                                        <option>USER</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" id="editSaveButton">Save
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--               модалка EDIT                 -->
+
+                            <!--               модалка DELETE                 -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1"
+                                 role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabelDelete">Delete User</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="#" method="post">
+                                                <div class="form-group">
+                                                    <label for="IdDeleteModal">id</label>
+                                                    <input type="text" class="form-control" id="IdDeleteModal"
+                                                           readonly="readonly">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="LoginDeleteModal">Login</label>
+                                                    <input type="text" class="form-control" id="LoginDeleteModal"
+                                                           readonly="readonly">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="PasswordDeleteModal">Password</label>
+                                                    <input type="password" class="form-control"
+                                                           id="PasswordDeleteModal" readonly="readonly">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="RoleDeleteModal">Role</label>
+                                                    <input type="text" class="form-control"
+                                                           id="RoleDeleteModal"  readonly="readonly">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" id="deleteModalButton">Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--               модалка DELETE                 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--   НОВЫЙ ПОЛЬЗОВАТЕЛЬ         -->
+            <div class="tab-pane fade" id="newUser">
+                <nav class="navbar navbar-black bg-light">
+                <span class="navbar-text">
+                   Add new user
+                  </span>
+                </nav>
+                <form method="post" id="newUserForm">
+                    <div class="form-group">
+                        <label for="LoginInput">Login</label>
+                        <input type="text" class="form-control" id="LoginInput" name="login"
+                               placeholder="Input login here">
+                    </div>
+                    <div class="form-group">
+                        <label for="PasswordInput">Password</label>
+                        <input type="password" class="form-control" id="PasswordInput" name="password"
+                               placeholder="Input password here">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleInput">Role</label>
+                        <select class="custom-select" id="RoleInput" name="role">
+                            <option>ADMIN</option>
+                            <option>USER</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btnAddUser">Save</button>
+                </form>
+            </div>
+            <!--   НОВЫЙ ПОЛЬЗОВАТЕЛЬ         -->
+        </div>
+
+    </div>
+
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" type="text/javascript"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>
